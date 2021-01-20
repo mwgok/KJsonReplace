@@ -1,3 +1,4 @@
+import FileUtils.getFileFromDirectory
 import FileUtils.readFile
 import FileUtils.saveFile
 import com.google.gson.GsonBuilder
@@ -10,8 +11,12 @@ val pathInput = "/Users/neil.m/0Developer/KotlinScripts/untitled/src/main/resour
 val pathOutput = "/Users/neil.m/0Developer/KotlinScripts/untitled/src/main/resources/test_output.json"
 
 fun main() {
+    // Read file paths from directory
+    val originalFiles = getFileFromDirectory("/Users/neil.m/0Developer/KotlinScripts/untitled/src/main/resources/")
+    println(originalFiles)
+
     // Read JSON File
-    val fileContent = readFile(pathInput)
+    val fileContent = readFile(pathInput) // or originalFiles[1].getPath()
     val originalJsonObject = gson.fromJson(fileContent, JsonObject::class.java)
     println(originalJsonObject)
 

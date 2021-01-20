@@ -2,8 +2,22 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.io.File
 
 object FileUtils {
+    fun getFileFromDirectory(dirPath: String): List<File> {
+        val listPaths = mutableListOf<File>()
+        val folder = File(dirPath)
+        val listOfFiles = folder.listFiles()
+
+        for (file in listOfFiles) {
+            if (file.isFile) {
+                listPaths.add(file)
+            }
+        }
+        return listPaths
+    }
+
     fun readFile(filePath: String): String {
         val `is`: InputStream = FileInputStream(filePath)
         val size = `is`.available()
