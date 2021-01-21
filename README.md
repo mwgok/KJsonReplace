@@ -1,6 +1,6 @@
 ## Introduction
 
-Boilerplate in Kotlin to perform download, read, parse, format, save and upload operations on JsonSchema documents (Blueprint Library).
+Boilerplate in Kotlin to perform download, read, parse, format, save and upload operations on JsonSchema documents.
 
 ## Setup 
 
