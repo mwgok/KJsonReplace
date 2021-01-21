@@ -1,6 +1,7 @@
 import FileUtils.getFileFromDirectory
 import FileUtils.readFile
 import FileUtils.saveFile
+import ParseUtils.search
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -36,20 +37,6 @@ fun main() {
     // Save Modified JSON
     val newfileContent = gson.toJson(originalJsonObject)
     saveFile(pathOutput, newfileContent)
-}
-
-/**
- * Returns json object if found
- */
-fun search(jsonObject: JsonObject, searchKey: String): JsonObject? {
-    for (key in jsonObject.keySet()) {
-        if (key == searchKey) return jsonObject
-        if (jsonObject.get(key) is JsonObject) {
-            val obFound = search(jsonObject.getAsJsonObject(key), searchKey)
-            if (obFound != null) return obFound
-        }
-    }
-    return null
 }
 
 fun sample_AddProperty(originalJsonObject: JsonObject) {

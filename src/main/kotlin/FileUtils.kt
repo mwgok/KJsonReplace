@@ -1,8 +1,4 @@
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
-import java.io.File
+import java.io.*
 
 object FileUtils {
     fun getFileFromDirectory(dirPath: String): List<File> {
@@ -20,19 +16,26 @@ object FileUtils {
 
     fun readFile(filePath: String): String {
         val `is`: InputStream = FileInputStream(filePath)
-        val size = `is`.available()
+        val reader: Reader = BufferedReader(InputStreamReader(`is`, "UTF-8"))
         val stringBuilder = StringBuilder()
-        for (i in 0 until size) {
-            stringBuilder.append(`is`.read().toChar())
+        reader.forEachLine {
+            stringBuilder.appendLine(it)
         }
         `is`.close()
+        reader.close()
         return stringBuilder.toString()
     }
 
     fun saveFile(filePath: String, content: String): Boolean {
+        File(filePath).parentFile.apply {
+            if (!exists() || !isDirectory) {
+                mkdirs()
+            }
+        }
         val os: OutputStream = FileOutputStream(filePath)
-        for (element in content) {
-            os.write(element.toInt())
+        val out: Writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
+        out.use { out ->
+            out.write(content)
         }
         os.close()
         return true
